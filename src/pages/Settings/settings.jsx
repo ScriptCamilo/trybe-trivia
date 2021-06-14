@@ -6,6 +6,8 @@ class settings extends React.Component {
       <div>
         <h1 data-testid="settings-title">Configuração</h1>
       </div>
-    )
+    );
   }
 }
+
+export default settings;
