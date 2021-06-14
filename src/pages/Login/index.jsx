@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { tokenResponseAPI } from '../../actions/tokenAction';
 
-export default class index extends Component {
-  constructor() {
-    super();
+class Login extends Component {
+  constructor(props) {
+    super(props);
 
     this.state = {
       fields: {
@@ -16,6 +19,7 @@ export default class index extends Component {
     };
 
     this.handleInput = this.handleInput.bind(this);
+    this.goToGamePage = this.goToGamePage(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -42,6 +46,13 @@ export default class index extends Component {
     });
   }
 
+  async goToGamePage() {
+    const { token } = this.props;
+    await token();
+    const { history: { push } } = this.props;
+    push('/game');
+  }
+
   render() {
     const { playBtn, fields } = this.state;
     return (
@@ -64,6 +75,7 @@ export default class index extends Component {
           type="submit"
           disabled={ playBtn.isDisabled }
           data-testid="btn-play"
+          onClick={ () => this.goToGamePage }
         >
           Jogar
         </button>
@@ -79,3 +91,15 @@ export default class index extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  token: (response) => dispatch(tokenResponseAPI(response)),
+});
+
+Login.propTypes = {
+  token: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }) }.isRequired;
+
+export default connect(null, mapDispatchToProps)(Login);

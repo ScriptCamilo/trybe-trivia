@@ -1,6 +1,6 @@
 import React from 'react';
 
-class index extends React.Component {
+class Settings extends React.Component {
   render() {
     return (
       <div>
@@ -10,4 +10,4 @@ class index extends React.Component {
   }
 }
 
-export default index;
+export default Settings;
