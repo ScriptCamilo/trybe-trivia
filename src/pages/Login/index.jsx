@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { tokenResponseAPI } from '../../actions/tokenAction';
 
-class index extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -78,6 +79,14 @@ class index extends Component {
         >
           Jogar
         </button>
+        <Link to="/settings">
+          <button
+            type="button"
+            data-testid="btn-settings"
+          >
+            Configurações
+          </button>
+        </Link>
       </form>
     );
   }
@@ -87,10 +96,10 @@ const mapDispatchToProps = (dispatch) => ({
   token: (response) => dispatch(tokenResponseAPI(response)),
 });
 
-index.propTypes = {
+Login.propTypes = {
   token: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }) }.isRequired;
 
-export default connect(null, mapDispatchToProps)(index);
+export default connect(null, mapDispatchToProps)(Login);
