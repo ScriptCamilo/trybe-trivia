@@ -68,8 +68,8 @@ export default class index extends Component {
           Jogar
         </button>
         <Link to="/settings">
-          <button 
-            type="button" 
+          <button
+            type="button"
             data-testid="btn-settings"
           >
             Configurações
