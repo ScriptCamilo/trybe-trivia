@@ -12,6 +12,7 @@ const getToken = (state = INITIAL_STATE, action) => {
       ...state,
       token: action.token,
       responseTokenAPI: true,
+      user: action.user,
     };
   case TOKEN_RESPONSE:
     return {

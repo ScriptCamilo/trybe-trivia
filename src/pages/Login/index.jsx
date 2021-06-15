@@ -19,7 +19,7 @@ class Login extends Component {
     };
 
     this.handleInput = this.handleInput.bind(this);
-    this.goToGamePage = this.goToGamePage(this);
+    this.goToGamePage = this.goToGamePage.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -46,17 +46,18 @@ class Login extends Component {
     });
   }
 
-  async goToGamePage() {
-    const { token } = this.props;
-    await token();
-    const { history: { push } } = this.props;
+  goToGamePage(event) {
+    event.preventDefault();
+    const { fields: user } = this.state;
+    const { startGame, history: { push } } = this.props;
+    startGame(user);
     push('/game');
   }
 
   render() {
     const { playBtn, fields } = this.state;
     return (
-      <form>
+      <form onSubmit={ this.goToGamePage }>
         <input
           type="text"
           id="name"
@@ -75,7 +76,6 @@ class Login extends Component {
           type="submit"
           disabled={ playBtn.isDisabled }
           data-testid="btn-play"
-          onClick={ () => this.goToGamePage }
         >
           Jogar
         </button>
@@ -93,11 +93,11 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  token: (response) => dispatch(tokenResponseAPI(response)),
+  startGame: (user) => dispatch(tokenResponseAPI(user)),
 });
 
 Login.propTypes = {
-  token: PropTypes.func.isRequired,
+  startGame: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }) }.isRequired;

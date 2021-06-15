@@ -7,15 +7,16 @@ export const tokenResponse = () => ({
   type: TOKEN_RESPONSE,
 });
 
-export const tokenSuccess = (token) => ({
+export const startGameSuccess = (token, user) => ({
   type: TOKEN_SUCCESS,
   token,
+  user,
 });
 
-export function tokenResponseAPI() {
+export function tokenResponseAPI(user) {
   return async (dispatch) => {
     dispatch(tokenResponse());
     const { token } = await fetchToken();
-    dispatch(tokenSuccess(token));
+    dispatch(startGameSuccess(token, user));
   };
 }
