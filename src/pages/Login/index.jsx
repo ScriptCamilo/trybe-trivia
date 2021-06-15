@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { tokenResponseAPI } from '../../actions/tokenAction';
+import { getQuestionsThunk } from '../../actions/gameActions';
 
 class Login extends Component {
   constructor(props) {
@@ -49,8 +50,9 @@ class Login extends Component {
   goToGamePage(event) {
     event.preventDefault();
     const { fields: user } = this.state;
-    const { startGame, history: { push } } = this.props;
-    startGame(user);
+    const { getToken, getQuestions, history: { push } } = this.props;
+    getToken(user);
+    getQuestions();
     push('/game');
   }
 
@@ -93,11 +95,13 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  startGame: (user) => dispatch(tokenResponseAPI(user)),
+  getToken: (user) => dispatch(tokenResponseAPI(user)),
+  getQuestions: () => dispatch(getQuestionsThunk()),
 });
 
 Login.propTypes = {
-  startGame: PropTypes.func.isRequired,
+  getToken: PropTypes.func.isRequired,
+  getQuestions: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }) }.isRequired;
