@@ -1,25 +1,35 @@
-import { TOKEN_SUCCESS, TOKEN_RESPONSE } from '../actions/tokenAction';
+import { TOKEN_SUCCESS, TOKEN_RESPONSE, TOKEN_ERROR } from '../actions/tokenAction';
 
 const INITIAL_STATE = {
-  responseTokenAPI: false,
   user: {},
+  isLoading: false,
+  token: null,
+  error: null,
 };
 
 const getToken = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case TOKEN_SUCCESS:
-
     return {
       ...state,
       token: action.token,
-      responseTokenAPI: true,
+      isLoading: false,
       user: action.user,
     };
+
+  case TOKEN_ERROR:
+    return {
+      ...state,
+      error: action.payload,
+      isLoading: false,
+    };
+
   case TOKEN_RESPONSE:
     return {
       ...state,
-      responseTokenAPI: true,
+      isLoading: true,
     };
+
   default: return state;
   }
 };

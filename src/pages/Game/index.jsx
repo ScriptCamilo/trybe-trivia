@@ -5,8 +5,7 @@ import Header from './components/Header';
 import Questions from './components/Questions';
 
 function Game({ user, questions }) {
-  const isLoading = !user.name || !Object.keys(questions).length;
-
+  const isLoading = !user.name || !questions.results;
   if (isLoading) return <h1>Carregando...</h1>;
 
   return (
@@ -17,9 +16,9 @@ function Game({ user, questions }) {
   );
 }
 
-const mapStateToProps = ({ settings, game }) => ({
-  user: settings.user,
-  questions: game.questions,
+const mapStateToProps = ({ settings: { user }, game: { questions } }) => ({
+  user,
+  questions,
 });
 
 Game.propTypes = {
