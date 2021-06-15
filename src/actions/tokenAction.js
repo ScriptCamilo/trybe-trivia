@@ -1,4 +1,4 @@
-import fetchToken from '../services/fetchTokenAPI';
+import { fetchToken } from '../services/api';
 
 export const TOKEN_SUCCESS = 'TOKEN_SUCCESS';
 export const TOKEN_RESPONSE = 'TOKEN_RESPONSE';

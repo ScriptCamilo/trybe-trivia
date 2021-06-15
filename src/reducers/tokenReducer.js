@@ -2,12 +2,13 @@ import { TOKEN_SUCCESS, TOKEN_RESPONSE } from '../actions/tokenAction';
 
 const INITIAL_STATE = {
   responseTokenAPI: false,
+  user: {},
 };
 
 const getToken = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case TOKEN_SUCCESS:
-    localStorage.setItem('token', JSON.stringify(action.token));
+
     return {
       ...state,
       token: action.token,
