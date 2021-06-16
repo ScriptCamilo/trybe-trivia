@@ -9,19 +9,46 @@ class Questions extends React.Component {
 
     this.state = {
       answersVisibility: 'hidden',
+      answersTimeout: false,
+      timer: 30,
+      answers: [],
     };
+
+    this.timerInterval = null;
+    this.awaitAnswerSelection = null;
 
     this.answerSelection = this.answerSelection.bind(this);
   }
 
-  answerSelection() {
-    this.setState({ answersVisibility: 'visible' });
+  componentDidMount() {
+    this.initCountdown();
+    this.shuffleAnswers();
   }
 
-  render() {
+  initCountdown() {
+    clearInterval(this.timerInterval);
+    clearTimeout(this.awaitAnswerSelection);
+
+    const oneSecond = 1000;
+    const fiveSeconds = 5000;
+    this.timerInterval = setInterval(() => {
+      const { timer } = this.state;
+      if (timer > 0) {
+        this.setState({ timer: timer - 1 });
+      } else {
+        clearInterval(this.timerInterval);
+        this.awaitAnswerSelection = setTimeout(() => {
+          this.setState({
+            answersVisibility: 'visible',
+            answersTimeout: true,
+          });
+        }, fiveSeconds);
+      }
+    }, oneSecond);
+  }
+
+  shuffleAnswers() {
     const { questions } = this.props;
-    const { answersVisibility } = this.state;
-    // Math.random retorna números entre 0 e 1
     const mathRandomMiddleNumber = 0.5;
     const correctAnswer = {
       question: questions[0].correct_answer,
@@ -33,11 +60,22 @@ class Questions extends React.Component {
     }));
 
     let answers = [correctAnswer, ...incorrectAnswers];
-    // Shuffle nossa lista
     answers = answers.sort(() => Math.random() - mathRandomMiddleNumber);
+
+    this.setState({ answers });
+  }
+
+  answerSelection() {
+    this.setState({ answersVisibility: 'visible' });
+  }
+
+  render() {
+    const { questions } = this.props;
+    const { answersVisibility, answersTimeout, timer, answers } = this.state;
 
     return (
       <div>
+        <div>{timer}</div>
         <div className="question">
           <span data-testid="question-category">{ questions[0].category }</span>
           <p data-testid="question-text">{ questions[0].question }</p>
@@ -51,6 +89,7 @@ class Questions extends React.Component {
               className={
                 dataTestid === 'correct-answer' ? 'answer-btn-correct' : 'answer-btn-inc'
               }
+              disabled={ answersTimeout }
               onClick={ this.answerSelection }
             >
               { question }
