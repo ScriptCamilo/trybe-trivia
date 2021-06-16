@@ -4,33 +4,44 @@ import { connect } from 'react-redux';
 import './styles.css';
 
 class Questions extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       answersVisibility: 'hidden',
+      indexQuestion: 0,
     };
 
     this.answerSelection = this.answerSelection.bind(this);
+    this.nextQuestion = this.nextQuestion.bind(this);
   }
 
   answerSelection() {
     this.setState({ answersVisibility: 'visible' });
   }
 
+  nextQuestion() {
+    const { indexQuestion } = this.state;
+    this.setState({
+      answersVisibility: 'hidden',
+      indexQuestion: indexQuestion + 1,
+    });
+  }
+
   render() {
     const { questions } = this.props;
-    const { answersVisibility } = this.state;
+    const { answersVisibility, indexQuestion } = this.state;
     // Math.random retorna números entre 0 e 1
     const mathRandomMiddleNumber = 0.5;
     const correctAnswer = {
-      question: questions[0].correct_answer,
+      question: questions[indexQuestion].correct_answer,
       dataTestid: 'correct-answer',
     };
-    const incorrectAnswers = questions[0].incorrect_answers.map((incorrect, index) => ({
-      question: incorrect,
-      dataTestid: `wrong-answer-${index}`,
-    }));
+    const incorrectAnswers = questions[indexQuestion].incorrect_answers
+      .map((incorrect, index) => ({
+        question: incorrect,
+        dataTestid: `wrong-answer-${index}`,
+      }));
 
     let answers = [correctAnswer, ...incorrectAnswers];
     // Shuffle nossa lista
@@ -39,8 +50,10 @@ class Questions extends React.Component {
     return (
       <div>
         <div className="question">
-          <span data-testid="question-category">{ questions[0].category }</span>
-          <p data-testid="question-text">{ questions[0].question }</p>
+          <span data-testid="question-category">
+            { questions[indexQuestion].category }
+          </span>
+          <p data-testid="question-text">{ questions[indexQuestion].question }</p>
         </div>
         <div className={ `answers ${answersVisibility}` }>
           { answers.map(({ question, dataTestid }) => (
@@ -54,9 +67,13 @@ class Questions extends React.Component {
               onClick={ this.answerSelection }
             >
               { question }
-
             </button>
           )) }
+          { answersVisibility !== 'hidden' && (
+            <button type="button" data-testid="btn-next" onClick={ this.nextQuestion }>
+              Próxima
+            </button>
+          )}
         </div>
       </div>
     );
