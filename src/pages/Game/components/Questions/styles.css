@@ -3,5 +3,5 @@
 }
 
 .answers.visible .answer-btn-inc {
-  border: 3px solid rgb(255, 0, 0);
+  border: 3px solid red;
 }
