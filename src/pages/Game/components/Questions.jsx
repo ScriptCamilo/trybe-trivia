@@ -1,6 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import './questions.css';
+
+function borderBtnColor() {
+  const selectBtnCorrect = document.querySelector('.answer-btn-correct');
+  const selectBtnIncorrect = document.querySelectorAll('.answer-btn-inc');
+  selectBtnCorrect.style.border = '3px solid rgb(6, 240, 15)';
+  selectBtnIncorrect.forEach((btn) => {
+    btn.style.border = '3px solid rgb(255, 0, 0)';
+  });
+}
 
 function Questions({ questions }) {
   // Math.random retorna números entre 0 e 1
@@ -30,6 +40,10 @@ function Questions({ questions }) {
             key={ question }
             data-testid={ dataTestid }
             type="button"
+            className={
+              dataTestid === 'correct-answer' ? 'answer-btn-correct' : 'answer-btn-inc'
+            }
+            onClick={ borderBtnColor }
           >
             { question }
 
