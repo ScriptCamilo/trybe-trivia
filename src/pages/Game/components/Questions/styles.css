@@ -1,0 +1,7 @@
+.answers.visible .answer-btn-correct {
+  border: 3px solid rgb(6, 240, 15);
+}
+
+.answers.visible .answer-btn-inc {
+  border: 3px solid red;
+}
