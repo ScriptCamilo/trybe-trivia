@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './styles.css';
+import md5 from 'crypto-js/md5';
+import { addScore } from '../../../../actions/gameActions';
+import upLocalStorageScore from './functions/localStorage';
 
 class Questions extends React.Component {
   constructor() {
@@ -17,12 +20,23 @@ class Questions extends React.Component {
     this.timerInterval = null;
     this.awaitAnswerSelection = null;
 
+    this.correctAnswer = 'correct-answer';
+
     this.answerSelection = this.answerSelection.bind(this);
   }
 
   componentDidMount() {
     this.initCountdown();
+
     this.shuffleAnswers();
+
+    const { user: { name, email } } = this.props;
+    localStorage.setItem('state', JSON.stringify({ player: {
+      name,
+      assertions: 0,
+      score: 0,
+      gravatarEmail: `https://www.gravatar.com/avatar/${String(md5(email))}`,
+    } }));
   }
 
   initCountdown() {
@@ -52,10 +66,12 @@ class Questions extends React.Component {
     const mathRandomMiddleNumber = 0.5;
     const correctAnswer = {
       question: questions[0].correct_answer,
-      dataTestid: 'correct-answer',
+      difficulty: questions[0].difficulty,
+      dataTestid: this.correctAnswer,
     };
     const incorrectAnswers = questions[0].incorrect_answers.map((incorrect, index) => ({
       question: incorrect,
+      difficulty: questions[0].difficulty,
       dataTestid: `wrong-answer-${index}`,
     }));
 
@@ -65,8 +81,24 @@ class Questions extends React.Component {
     this.setState({ answers });
   }
 
-  answerSelection() {
+  answerSelection(answerValue, difficulty) {
     this.setState({ answersVisibility: 'visible' });
+
+    if (answerValue === this.correctAnswer) {
+      const { upScore } = this.props;
+      const { timer } = this.state;
+      const basePoints = 10;
+      const difficultyPoints = {
+        easy: 1,
+        medium: 2,
+        hard: 3,
+      };
+      const score = basePoints + (timer * difficultyPoints[difficulty]);
+      upScore(score);
+      upLocalStorageScore(score);
+    }
+
+    clearInterval(this.timerInterval);
   }
 
   render() {
@@ -81,7 +113,7 @@ class Questions extends React.Component {
           <p data-testid="question-text">{ questions[0].question }</p>
         </div>
         <div className={ `answers ${answersVisibility}` }>
-          { answers.map(({ question, dataTestid }) => (
+          { answers.map(({ question, difficulty, dataTestid }) => (
             <button
               key={ question }
               data-testid={ dataTestid }
@@ -90,7 +122,7 @@ class Questions extends React.Component {
                 dataTestid === 'correct-answer' ? 'answer-btn-correct' : 'answer-btn-inc'
               }
               disabled={ answersTimeout }
-              onClick={ this.answerSelection }
+              onClick={ () => this.answerSelection(dataTestid, difficulty) }
             >
               { question }
 
@@ -102,12 +134,22 @@ class Questions extends React.Component {
   }
 }
 
-const mapStateToProps = ({ game: { questions } }) => ({
+const mapStateToProps = ({ settings: { user }, game: { questions } }) => ({
+  user,
   questions: questions.results,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  upScore: (score) => dispatch(addScore(score)),
+});
+
 Questions.propTypes = {
+  user: PropTypes.shape({
+    name: PropTypes.string,
+    email: PropTypes.string,
+  }),
   questions: PropTypes.object,
+  upScore: PropTypes.func,
 }.isRequired;
 
-export default connect(mapStateToProps)(Questions);
+export default connect(mapStateToProps, mapDispatchToProps)(Questions);

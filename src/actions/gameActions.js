@@ -3,6 +3,7 @@ import { fetchQuestions } from '../services/api';
 export const GET_QUESTIONS = 'GET_QUESTIONS';
 export const GET_QUESTIONS_SUCCESS = 'GET_QUESTIONS_SUCCESS';
 export const GET_QUESTIONS_ERROR = 'GET_QUESTIONS_ERROR';
+export const ADD_SCORE = 'ADD_SCORE';
 
 export function getQuestions() {
   return {
@@ -33,3 +34,10 @@ export const getQuestionsThunk = () => async (dispatch) => {
     dispatch(getQuestionsError(error));
   }
 };
+
+export function addScore(score) {
+  return {
+    type: ADD_SCORE,
+    payload: score,
+  };
+}
