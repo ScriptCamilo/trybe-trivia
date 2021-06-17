@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  align-items: center;
+
+  padding: 10px;
+
+  width: 300px;
+
+  border: 1px solid gray ;
+  border-radius: 20px;
+
+}
+
+.image {
+  
+}
+
+.score {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.score hr {
+  width: 100%;
+  border-top: 1px solid rgb(192, 190, 190);
+  border-bottom: 0;
+}
