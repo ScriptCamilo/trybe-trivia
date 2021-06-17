@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './styles.css';
 import md5 from 'crypto-js/md5';
+import { Redirect } from 'react-router';
 import { addScore } from '../../../../actions/gameActions';
 import upLocalStorageScore from './functions/localStorage';
 
@@ -20,6 +21,7 @@ class Questions extends React.Component {
 
     this.timerInterval = null;
     this.awaitAnswerSelection = null;
+    this.lastQuestion = 4;
 
     this.correctAnswer = 'correct-answer';
 
@@ -40,14 +42,22 @@ class Questions extends React.Component {
     } }));
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { indexQuestion } = this.state;
+    if (prevState.indexQuestion !== indexQuestion && indexQuestion <= this.lastQuestion) {
+      this.initCountdown();
+      this.shuffleAnswers();
+    }
+  }
+
   nextQuestion() {
     const { indexQuestion } = this.state;
     this.setState({
       answersVisibility: 'hidden',
-      indexQuestion: indexQuestion + 1,
+      indexQuestion: indexQuestion <= this.lastQuestion && indexQuestion + 1,
       timer: 30,
     });
-    this.initCountdown();
+    console.log(indexQuestion);
   }
 
   initCountdown() {
@@ -118,6 +128,10 @@ class Questions extends React.Component {
     const { questions } = this.props;
     const { answersVisibility, answersTimeout, timer,
       answers, indexQuestion } = this.state;
+    const numberOfQuestions = 4;
+    if (indexQuestion > numberOfQuestions) {
+      return <Redirect to="/feedback" />;
+    }
     return (
       <div>
         <div>{timer}</div>
