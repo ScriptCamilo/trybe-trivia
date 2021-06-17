@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from '../Game/components/Header';
 import { Link } from 'react-router-dom';
+import Header from '../Game/components/Header';
 
 class Feedback extends React.Component {
   feedbackInfos() {
@@ -19,7 +19,7 @@ class Feedback extends React.Component {
           { `Número de acertos: ${assertions}` }
         </p>
       </section>
-    )
+    );
   }
 
   buttonPlayAgain() {
