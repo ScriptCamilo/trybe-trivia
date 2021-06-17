@@ -1,4 +1,4 @@
-export default function upLocalStorageScore(score) {
+export default function upLocalStorageScore(newScore) {
   const state = JSON.parse(localStorage.getItem('state'));
 
   if (state) {
@@ -7,7 +7,7 @@ export default function upLocalStorageScore(score) {
       player: {
         ...player,
         assertions: player.assertions + 1,
-        score,
+        score: player.score + newScore,
       },
     }));
   }

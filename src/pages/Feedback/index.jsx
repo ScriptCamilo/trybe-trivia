@@ -12,11 +12,17 @@ class Feedback extends React.Component {
         <p data-testid="feedback-text">
           {assertions < minimunAssertions ? 'Podia ser melhor...' : 'Mandou bem!'}
         </p>
-        <p data-testid="feedback-total-score">
-          { `Pontuação Final: ${score}` }
+        <p>
+          Pontuação Final:
+          <span data-testid="feedback-total-score">
+            { score }
+          </span>
         </p>
-        <p data-testid="feedback-total-question">
-          { `Número de acertos: ${assertions}` }
+        <p>
+          Número de acertos:
+          <span data-testid="feedback-total-question">
+            { assertions }
+          </span>
         </p>
       </section>
     );
