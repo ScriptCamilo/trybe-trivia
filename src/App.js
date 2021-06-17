@@ -11,6 +11,7 @@ import Ranking from './pages/Ranking';
 export default function App() {
   return (
     <Switch>
+      <Route path="/feedback" component={ Feedback } />
       <Route path="/game" component={ Game } />
       <Route path="/settings" component={ Settings } />
       <Route path="/feedback" component={ Feedback } />
