@@ -21,6 +21,7 @@ class Questions extends React.Component {
 
     this.timerInterval = null;
     this.awaitAnswerSelection = null;
+    this.lastQuestion = 4;
 
     this.correctAnswer = 'correct-answer';
 
@@ -41,14 +42,22 @@ class Questions extends React.Component {
     } }));
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { indexQuestion } = this.state;
+    if (prevState.indexQuestion !== indexQuestion && indexQuestion <= this.lastQuestion) {
+      this.initCountdown();
+      this.shuffleAnswers();
+    }
+  }
+
   nextQuestion() {
     const { indexQuestion } = this.state;
     this.setState({
       answersVisibility: 'hidden',
-      indexQuestion: indexQuestion + 1,
+      indexQuestion: indexQuestion <= this.lastQuestion && indexQuestion + 1,
       timer: 30,
     });
-    this.initCountdown();
+    console.log(indexQuestion);
   }
 
   initCountdown() {
