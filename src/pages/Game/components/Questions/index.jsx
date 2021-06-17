@@ -7,11 +7,12 @@ import { addScore } from '../../../../actions/gameActions';
 import upLocalStorageScore from './functions/localStorage';
 
 class Questions extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       answersVisibility: 'hidden',
+      indexQuestion: 0,
       answersTimeout: false,
       timer: 30,
       answers: [],
@@ -23,11 +24,11 @@ class Questions extends React.Component {
     this.correctAnswer = 'correct-answer';
 
     this.answerSelection = this.answerSelection.bind(this);
+    this.nextQuestion = this.nextQuestion.bind(this);
   }
 
   componentDidMount() {
     this.initCountdown();
-
     this.shuffleAnswers();
 
     const { user: { name, email } } = this.props;
@@ -37,6 +38,16 @@ class Questions extends React.Component {
       score: 0,
       gravatarEmail: `https://www.gravatar.com/avatar/${String(md5(email))}`,
     } }));
+  }
+
+  nextQuestion() {
+    const { indexQuestion } = this.state;
+    this.setState({
+      answersVisibility: 'hidden',
+      indexQuestion: indexQuestion + 1,
+      timer: 30,
+    });
+    this.initCountdown();
   }
 
   initCountdown() {
@@ -63,17 +74,19 @@ class Questions extends React.Component {
 
   shuffleAnswers() {
     const { questions } = this.props;
+    const { indexQuestion } = this.state;
     const mathRandomMiddleNumber = 0.5;
     const correctAnswer = {
-      question: questions[0].correct_answer,
-      difficulty: questions[0].difficulty,
+      question: questions[indexQuestion].correct_answer,
+      difficulty: questions[indexQuestion].difficulty,
       dataTestid: this.correctAnswer,
     };
-    const incorrectAnswers = questions[0].incorrect_answers.map((incorrect, index) => ({
-      question: incorrect,
-      difficulty: questions[0].difficulty,
-      dataTestid: `wrong-answer-${index}`,
-    }));
+    const incorrectAnswers = questions[indexQuestion].incorrect_answers
+      .map((incorrect, index) => ({
+        question: incorrect,
+        difficulty: questions[indexQuestion].difficulty,
+        dataTestid: `wrong-answer-${index}`,
+      }));
 
     let answers = [correctAnswer, ...incorrectAnswers];
     answers = answers.sort(() => Math.random() - mathRandomMiddleNumber);
@@ -103,14 +116,16 @@ class Questions extends React.Component {
 
   render() {
     const { questions } = this.props;
-    const { answersVisibility, answersTimeout, timer, answers } = this.state;
-
+    const { answersVisibility, answersTimeout, timer,
+      answers, indexQuestion } = this.state;
     return (
       <div>
         <div>{timer}</div>
         <div className="question">
-          <span data-testid="question-category">{ questions[0].category }</span>
-          <p data-testid="question-text">{ questions[0].question }</p>
+          <span data-testid="question-category">
+            { questions[indexQuestion].category }
+          </span>
+          <p data-testid="question-text">{ questions[indexQuestion].question }</p>
         </div>
         <div className={ `answers ${answersVisibility}` }>
           { answers.map(({ question, difficulty, dataTestid }) => (
@@ -128,6 +143,11 @@ class Questions extends React.Component {
 
             </button>
           )) }
+          { answersVisibility !== 'hidden' && (
+            <button type="button" data-testid="btn-next" onClick={ this.nextQuestion }>
+              Próxima
+            </button>
+          )}
         </div>
       </div>
     );
