@@ -3,25 +3,49 @@ import Header from '../Game/components/Header';
 import { Link } from 'react-router-dom';
 
 class Feedback extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   feedbackInfos() {
     const minimunAssertions = 3;
+    const state = JSON.parse(localStorage.getItem('state'));
+    const { player: { score, assertions } } = state;
     return (
       <section>
         <p data-testid="feedback-text">
-          {0 < minimunAssertions ? 'Podia ser melhor...' : 'Mandou bem!'}
+          {assertions < minimunAssertions ? 'Podia ser melhor...' : 'Mandou bem!'}
         </p>
         <p data-testid="feedback-total-score">
-          { `Pontuação Final: 0` }
+          { `Pontuação Final: ${score}` }
         </p>
         <p data-testid="feedback-total-question">
-          { `Número de acertos: 0` }
+          { `Número de acertos: ${assertions}` }
         </p>
       </section>
     )
+  }
+
+  buttonPlayAgain() {
+    return (
+      <Link to="/">
+        <button
+          type="button"
+          data-testid="btn-play-again"
+        >
+          Jogar Novamente
+        </button>
+      </Link>
+    );
+  }
+
+  buttonRanking() {
+    return (
+      <Link to="/ranking">
+        <button
+          type="button"
+          data-testid="btn-ranking"
+        >
+          Ver Ranking
+        </button>
+      </Link>
+    );
   }
 
   render() {
@@ -29,22 +53,8 @@ class Feedback extends React.Component {
       <section>
         <Header />
         {this.feedbackInfos()}
-        <Link to="/">
-          <button
-            type="button"
-            data-testid="btn-play-again"
-          >
-            Jogar Novamente
-          </button>
-        </Link>
-        <Link to="/ranking">
-          <button
-            type="button"
-            data-testid="btn-ranking"
-          >
-            Ver Ranking
-          </button>
-        </Link>
+        {this.buttonPlayAgain()}
+        {this.buttonRanking()}
       </section>
     );
   }
