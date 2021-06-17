@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import md5 from 'crypto-js/md5';
 import { connect } from 'react-redux';
 
-function Header({ user }) {
+function Header({ user, totalScore }) {
   const hash = String(md5(user.email));
 
   return (
@@ -16,14 +16,15 @@ function Header({ user }) {
       <strong data-testid="header-player-name">{user.name}</strong>
       <span>
         Pontos:
-        <span data-testid="header-score">0</span>
+        <span data-testid="header-score">{totalScore}</span>
       </span>
     </div>
   );
 }
 
-const mapStateToProps = ({ settings: { user } }) => ({
+const mapStateToProps = ({ settings: { user }, game: { totalScore } }) => ({
   user,
+  totalScore,
 });
 
 Header.propTypes = {
@@ -31,6 +32,7 @@ Header.propTypes = {
     email: PropTypes.string,
     name: PropTypes.string,
   }),
+  totalScore: PropTypes.number,
 }.isRequired;
 
 export default connect(mapStateToProps)(Header);
