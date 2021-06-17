@@ -7,8 +7,8 @@ import { addScore } from '../../../../actions/gameActions';
 import upLocalStorageScore from './functions/localStorage';
 
 class Questions extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       answersVisibility: 'hidden',
@@ -29,7 +29,6 @@ class Questions extends React.Component {
 
   componentDidMount() {
     this.initCountdown();
-
     this.shuffleAnswers();
 
     const { user: { name, email } } = this.props;
