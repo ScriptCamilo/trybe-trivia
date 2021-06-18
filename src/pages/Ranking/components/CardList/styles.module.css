@@ -1,0 +1,21 @@
+.container {
+  align-items: center;
+  border: 1px solid gray;
+  border-radius: 20px;
+  display: flex;
+  margin: 15px;
+  padding: 10px;
+  width: 300px;
+}
+
+.score {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.score hr {
+  border-bottom: 0;
+  border-top: 1px solid rgb(192, 190, 190);
+  width: 100%;
+}

@@ -5,7 +5,7 @@ import './styles.css';
 import md5 from 'crypto-js/md5';
 import { Redirect } from 'react-router';
 import { addScore } from '../../../../actions/gameActions';
-import upLocalStorageScore from './functions/localStorage';
+import { upLocalStorageScore } from '../../../../utils/localStorage';
 
 class Questions extends React.Component {
   constructor(props) {
@@ -57,7 +57,6 @@ class Questions extends React.Component {
       indexQuestion: indexQuestion <= this.lastQuestion && indexQuestion + 1,
       timer: 30,
     });
-    console.log(indexQuestion);
   }
 
   initCountdown() {
