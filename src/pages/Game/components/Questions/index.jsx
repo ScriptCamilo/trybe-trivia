@@ -128,13 +128,20 @@ class Questions extends React.Component {
   render() {
     const { questions } = this.props;
     const { answersVisibility, answersTimeout,
-      answers, indexQuestion } = this.state;
+      answers, indexQuestion, timer } = this.state;
     const numberOfQuestions = 4;
     if (indexQuestion > numberOfQuestions) {
       return <Redirect to="/feedback" />;
     }
+    const to100Percent = 3.33;
     return (
       <div className={ styles.questionPage }>
+        <div className={ styles.timeBar }>
+          <div
+            className={ styles.timeBar_Bar }
+            style={ { width: `${timer * to100Percent}%` } }
+          />
+        </div>
         <div className={ styles.question }>
           <span data-testid="question-category">
             { questions[indexQuestion].category }

@@ -58,3 +58,17 @@
   right: 60px;
   width: fit-content;
 }
+
+.timeBar {
+  background: var(--wine);
+  height: 10px;
+  position: absolute;
+  top: 145px;
+  width: 100%;
+}
+
+.timeBar_Bar {
+  background: var(--green);
+  height: 10px;
+  transition: width 1s linear;
+}
