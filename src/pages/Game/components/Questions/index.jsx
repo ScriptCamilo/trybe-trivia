@@ -7,6 +7,7 @@ import { decode } from 'he';
 import styles from './styles.module.css';
 import { addScore } from '../../../../actions/gameActions';
 import { upLocalStorageScore } from '../../../../utils/localStorage';
+import Answers from './components/Answers';
 
 class Questions extends React.Component {
   constructor(props) {
@@ -142,33 +143,13 @@ class Questions extends React.Component {
             { decode(questions[indexQuestion].question) }
           </p>
         </div>
-        <div className={ `${styles.answers} ${answersVisibility}` }>
-          { answers.map(({ question, difficulty, dataTestid }) => (
-            <button
-              key={ question }
-              data-testid={ dataTestid }
-              type="button"
-              className={ `${styles.answer}
-                ${dataTestid === 'correct-answer' ? 'answer-btn-cor' : 'answer-btn-inc'}
-              ` }
-              disabled={ answersTimeout }
-              onClick={ () => this.answerSelection(dataTestid, difficulty) }
-            >
-              { decode(question) }
-
-            </button>
-          )) }
-          { answersVisibility !== 'hidden' && (
-            <button
-              type="button"
-              data-testid="btn-next"
-              onClick={ this.nextQuestion }
-              className={ `btn-primary ${styles.nextQuestion}` }
-            >
-              Próxima
-            </button>
-          )}
-        </div>
+        <Answers
+          answersVisibility={ answersVisibility }
+          answersTimeout={ answersTimeout }
+          answers={ answers }
+          nextQuestion={ this.nextQuestion }
+          answerSelection={ this.answerSelection }
+        />
       </div>
     );
   }
