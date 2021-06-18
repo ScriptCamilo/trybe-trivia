@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { MdSettings } from 'react-icons/md';
 import { tokenResponseAPI } from '../../actions/tokenAction';
 import { getQuestionsThunk } from '../../actions/gameActions';
+import styles from './styles.module.css';
+import Authors from './components/Authors';
 
 class Login extends Component {
   constructor(props) {
@@ -59,39 +62,45 @@ class Login extends Component {
   render() {
     const { playBtn, fields } = this.state;
     return (
-      <form onSubmit={ this.goToGamePage }>
-        <input
-          type="text"
-          id="name"
-          placeholder="Name"
-          onChange={ this.handleInput }
-          value={ fields.name }
-          data-testid="input-player-name"
-        />
-        <input
-          type="text"
-          id="email"
-          placeholder="E-mail"
-          onChange={ this.handleInput }
-          value={ fields.email }
-          data-testid="input-gravatar-email"
-        />
-        <button
-          type="submit"
-          disabled={ playBtn.isDisabled }
-          data-testid="btn-play"
-        >
-          Jogar
-        </button>
-        <Link to="/settings">
+      <div className={ styles.loginPage }>
+        <img src="logo.png" alt="" />
+        <form className={ styles.loginBox } onSubmit={ this.goToGamePage }>
+          <input
+            type="text"
+            id="name"
+            placeholder="Name"
+            onChange={ this.handleInput }
+            value={ fields.name }
+            data-testid="input-player-name"
+          />
+          <input
+            type="text"
+            id="email"
+            placeholder="E-mail"
+            onChange={ this.handleInput }
+            value={ fields.email }
+            data-testid="input-gravatar-email"
+          />
           <button
-            type="button"
-            data-testid="btn-settings"
+            type="submit"
+            disabled={ playBtn.isDisabled }
+            data-testid="btn-play"
+            className="btn-primary"
           >
-            Configurações
+            Jogar
           </button>
-        </Link>
-      </form>
+          <Link to="/settings">
+            <button
+              type="button"
+              data-testid="btn-settings"
+              className={ styles.settings }
+            >
+              <MdSettings />
+            </button>
+          </Link>
+        </form>
+        <Authors />
+      </div>
     );
   }
 }

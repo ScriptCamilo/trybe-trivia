@@ -1,7 +1,39 @@
+:root {
+  --background: radial-gradient(#8349ff, #36399a);
+  --primary-button: linear-gradient(#52d93d, #089562);
+  --gray: #c4c4c4;
+  --purple: #7b61ff;
+}
+
 * {
   box-sizing: border-box;
   font-family: sans-serif;
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+body {
+  background: var(--background);
+  min-height: 100vh;
+}
+
+button {
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--primary-button);
+  border: none;
+  border-radius: 99px;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 15px 25px;
+  transform: translateY(0%);
+  transition: .2s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-5%);
 }

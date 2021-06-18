@@ -1,0 +1,50 @@
+.loginPage {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+}
+
+.loginBox {
+  background: white;
+  border-radius: 45px;
+  display: grid;
+  gap: 40px;
+  margin: 0 auto;
+  max-width: 570px;
+  padding: 40px;
+  width: 100%;
+}
+
+.loginBox input {
+  border: none;
+  border-bottom: 5px solid var(--gray);
+  padding: 15px;
+  transition: 0.4s border-bottom;
+  width: 100%;
+}
+
+.loginBox input:focus {
+  border-bottom: 5px solid var(--purple);
+}
+
+.settings {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 30px;
+  position: absolute;
+  right: 40px;
+  top: 40px;
+}
+
+.authors {
+  color: white;
+  padding: 20px 0;
+}
+
+.authors a {
+  color: white;
+  margin: 0 5px;
+}
