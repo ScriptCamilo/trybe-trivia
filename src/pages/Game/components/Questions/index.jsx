@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import './styles.css';
 import md5 from 'crypto-js/md5';
 import { Redirect } from 'react-router';
+import { decode } from 'he';
 import { addScore } from '../../../../actions/gameActions';
 import { upLocalStorageScore } from '../../../../utils/localStorage';
 
@@ -138,10 +139,9 @@ class Questions extends React.Component {
           <span data-testid="question-category">
             { questions[indexQuestion].category }
           </span>
-          <p
-            data-testid="question-text"
-            dangerouslySetInnerHTML={ { __html: questions[indexQuestion].question } }
-          />
+          <p data-testid="question-text">
+            { decode(questions[indexQuestion].question) }
+          </p>
         </div>
         <div className={ `answers ${answersVisibility}` }>
           { answers.map(({ question, difficulty, dataTestid }) => (
