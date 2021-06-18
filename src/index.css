@@ -1,9 +1,11 @@
 :root {
   --background: radial-gradient(#8349ff, #36399a);
-  --primary-button: linear-gradient(#52d93d, #089562);
+  --green-gradient: linear-gradient(#52d93d, #089562);
   --gray: #c4c4c4;
   --dark-gray: #717171;
   --purple: #7b61ff;
+  --purple-blue: #6367ff;
+  --violet: #4129B8;
 }
 
 * {
@@ -24,7 +26,7 @@ button {
 }
 
 .btn-primary {
-  background: var(--primary-button);
+  background: var(--green-gradient);
   border: none;
   border-radius: 99px;
   color: white;

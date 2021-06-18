@@ -1,1 +1,46 @@
-/* Styles */
+.header {
+  align-items: center;
+  background: linear-gradient(var(--purple-blue), var(--purple));
+  border-bottom: 5px solid var(--violet);
+  display: flex;
+  justify-content: space-between;
+  padding: 25px 60px;
+}
+
+.user {
+  align-items: center;
+  color: white;
+  display: flex;
+  font-size: 19px;
+}
+
+.userPhoto {
+  background: var(--green-gradient);
+  border-radius: 50%;
+  font-size: 0;
+  margin-right: 30px;
+  padding: 5px;
+}
+
+.userPhoto img {
+  border-radius: 50%;
+}
+
+.score {
+  align-items: center;
+  color: white;
+  display: flex;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.score span {
+  font-size: 30px;
+  margin-left: 7px;
+  margin-right: 15px;
+}
+
+.score img {
+  height: 40px;
+  width: 40px;
+}
