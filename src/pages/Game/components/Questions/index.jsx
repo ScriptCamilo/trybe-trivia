@@ -138,7 +138,10 @@ class Questions extends React.Component {
           <span data-testid="question-category">
             { questions[indexQuestion].category }
           </span>
-          <p data-testid="question-text">{ questions[indexQuestion].question }</p>
+          <p
+            data-testid="question-text"
+            dangerouslySetInnerHTML={ { __html: questions[indexQuestion].question } }
+          />
         </div>
         <div className={ `answers ${answersVisibility}` }>
           { answers.map(({ question, difficulty, dataTestid }) => (
