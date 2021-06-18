@@ -1,0 +1,23 @@
+@keyframes spinLoading {
+  from {
+    transform: rotateZ(0deg);
+  } to {
+    transform: rotateZ(360deg);
+  }
+}
+
+.loading {
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  position: fixed;
+  width: 100%;
+}
+
+.loading svg {
+  animation: spinLoading 1s infinite linear;
+  color: var(--purple);
+  font-size: 80px;
+}

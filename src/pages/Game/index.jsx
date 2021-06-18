@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from './components/Header';
 import Questions from './components/Questions';
+import Loading from '../../components/Loading';
 
 function Game({ user, questions }) {
   const isLoading = !user.name || !questions.results;
-  if (isLoading) return <h1>Carregando...</h1>;
+  if (isLoading) return <Loading />;
 
   return (
     <div>
