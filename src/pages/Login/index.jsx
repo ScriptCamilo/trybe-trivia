@@ -89,16 +89,16 @@ class Login extends Component {
           >
             Jogar
           </button>
-          <Link to="/settings">
-            <button
-              type="button"
-              data-testid="btn-settings"
-              className={ styles.settings }
-            >
-              <MdSettings />
-            </button>
-          </Link>
         </form>
+        <Link to="/settings">
+          <button
+            type="button"
+            data-testid="btn-settings"
+            className={ styles.settings }
+          >
+            <MdSettings />
+          </button>
+        </Link>
         <Authors />
       </div>
     );
