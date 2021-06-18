@@ -2,6 +2,7 @@
   --background: radial-gradient(#8349ff, #36399a);
   --primary-button: linear-gradient(#52d93d, #089562);
   --gray: #c4c4c4;
+  --dark-gray: #717171;
   --purple: #7b61ff;
 }
 
@@ -34,6 +35,11 @@ button {
   transition: .2s;
 }
 
-.btn-primary:hover {
+.btn-primary:hover:not(.btn-primary:disabled) {
   transform: translateY(-5%);
+}
+
+.btn-primary:disabled {
+  background: linear-gradient(var(--gray), var(--dark-gray));
+  cursor: not-allowed;
 }
