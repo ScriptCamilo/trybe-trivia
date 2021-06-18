@@ -72,3 +72,14 @@
   height: 10px;
   transition: width 1s linear;
 }
+
+.questionCounter {
+  background: var(--purple);
+  border-radius: 10px;
+  bottom: 0;
+  color: white;
+  left: 50%;
+  padding: 10px 20px;
+  position: absolute;
+  transform: translateX(-50%) translateY(50%);
+}

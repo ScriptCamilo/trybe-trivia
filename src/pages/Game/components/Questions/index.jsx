@@ -149,6 +149,9 @@ class Questions extends React.Component {
           <p data-testid="question-text">
             { decode(questions[indexQuestion].question) }
           </p>
+          <div className={ styles.questionCounter }>
+            { `Questão ${indexQuestion + 1}/5` }
+          </div>
         </div>
         <Answers
           answersVisibility={ answersVisibility }
