@@ -1,6 +1,9 @@
 :root {
   --background: radial-gradient(#8349ff, #36399a);
   --green-gradient: linear-gradient(#52d93d, #089562);
+  --red-gradient: linear-gradient(#d93d3d, #95084c);
+  --purple-gradient: linear-gradient(#6258d6, #781bc0);
+  --purplegreen-gradient: linear-gradient(#7b61ff, #089562);
   --gray: #c4c4c4;
   --dark-gray: #717171;
   --purple: #7b61ff;
@@ -45,3 +48,14 @@ button {
   background: linear-gradient(var(--gray), var(--dark-gray));
   cursor: not-allowed;
 }
+
+.visible .answer-btn-cor {
+  background: var(--green-gradient);
+  border: 3px solid rgb(6, 240, 15);
+}
+
+.visible .answer-btn-inc {
+  background: var(--red-gradient);
+  border: 3px solid red;
+}
+

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import './styles.css';
 import md5 from 'crypto-js/md5';
 import { Redirect } from 'react-router';
 import { decode } from 'he';
+import styles from './styles.module.css';
 import { addScore } from '../../../../actions/gameActions';
 import { upLocalStorageScore } from '../../../../utils/localStorage';
 
@@ -126,16 +126,15 @@ class Questions extends React.Component {
 
   render() {
     const { questions } = this.props;
-    const { answersVisibility, answersTimeout, timer,
+    const { answersVisibility, answersTimeout,
       answers, indexQuestion } = this.state;
     const numberOfQuestions = 4;
     if (indexQuestion > numberOfQuestions) {
       return <Redirect to="/feedback" />;
     }
     return (
-      <div>
-        <div>{timer}</div>
-        <div className="question">
+      <div className={ styles.questionPage }>
+        <div className={ styles.question }>
           <span data-testid="question-category">
             { questions[indexQuestion].category }
           </span>
@@ -143,24 +142,29 @@ class Questions extends React.Component {
             { decode(questions[indexQuestion].question) }
           </p>
         </div>
-        <div className={ `answers ${answersVisibility}` }>
+        <div className={ `${styles.answers} ${answersVisibility}` }>
           { answers.map(({ question, difficulty, dataTestid }) => (
             <button
               key={ question }
               data-testid={ dataTestid }
               type="button"
-              className={
-                dataTestid === 'correct-answer' ? 'answer-btn-correct' : 'answer-btn-inc'
-              }
+              className={ `${styles.answer}
+                ${dataTestid === 'correct-answer' ? 'answer-btn-cor' : 'answer-btn-inc'}
+              ` }
               disabled={ answersTimeout }
               onClick={ () => this.answerSelection(dataTestid, difficulty) }
             >
-              { question }
+              { decode(question) }
 
             </button>
           )) }
           { answersVisibility !== 'hidden' && (
-            <button type="button" data-testid="btn-next" onClick={ this.nextQuestion }>
+            <button
+              type="button"
+              data-testid="btn-next"
+              onClick={ this.nextQuestion }
+              className={ `btn-primary ${styles.nextQuestion}` }
+            >
               Próxima
             </button>
           )}
