@@ -1,22 +1,38 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { func } from 'prop-types';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { getRanking } from '../../utils/localStorage';
 
 import CardList from './components/CardList';
 
-// Preciso salvar no localStorage as infos do usuário e sua colocação diante os demais
-// No meu cardList irei passar as infos do usuário
-// Fiz uma function legal para salvar e capturar infos do localStorage como array
-// Posso fazer o handle das posições ao salvar os dados ou capturar eles
-class Ranking extends Component {
-  render() {
-    return (
-      <>
-        <h1 data-testid="ranking-title">Ranking</h1>
-        <ol>
-          <CardList />
-        </ol>
-      </>
-    );
-  }
+function Ranking({ dispatchReset }) {
+  const ranking = getRanking();
+
+  return (
+    <>
+      <h1 data-testid="ranking-title">Ranking</h1>
+      <ol>
+        {
+          ranking.map((player, index) => (
+            <CardList key={ index } { ...player } position={ index + 1 } />
+          ))
+        }
+      </ol>
+      <Link data-testid="btn-go-home" onClick={ dispatchReset } to="/">
+        Jogar Novamente
+      </Link>
+    </>
+  );
 }
 
-export default Ranking;
+Ranking.propTypes = {
+  dispatchReset: func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchReset: () => dispatch({ type: 'RESET_GAME' }),
+});
+
+export default connect(null, mapDispatchToProps)(Ranking);

@@ -1,22 +1,38 @@
 import React from 'react';
+import { string, number } from 'prop-types';
 
 import styles from './styles.module.css';
 
-function CardList() {
+function CardList({ name, score, picture, position }) {
+  const index = position - 1;
+
   return (
     <li className={ styles.container }>
-      <span>1°</span>
-      <figure className={ styles.image }>
-        <img src="" alt="teste" />
+      <span>
+        { position }
+        °
+      </span>
+      <figure>
+        <img src={ picture } alt={ name } />
       </figure>
 
       <section className={ styles.score }>
-        <span>Nome</span>
+        <p data-testid={ `player-name-${index}` }>{name}</p>
         <hr />
-        <span>Pontuação: 10</span>
+        <p>
+          Pontuação:
+          <span data-testid={ `player-score-${index}` }>{score}</span>
+        </p>
       </section>
     </li>
   );
 }
+
+CardList.propTypes = {
+  name: string.isRequired,
+  score: number.isRequired,
+  picture: string.isRequired,
+  position: number.isRequired,
+};
 
 export default CardList;

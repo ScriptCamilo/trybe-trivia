@@ -1,5 +1,10 @@
 import React from 'react';
+import { func } from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { setPlayerInRanking } from '../../utils/localStorage';
+
 import Header from '../Game/components/Header';
 
 class Feedback extends React.Component {
@@ -28,9 +33,9 @@ class Feedback extends React.Component {
     );
   }
 
-  buttonPlayAgain() {
+  buttonPlayAgain(dispatchReset) {
     return (
-      <Link to="/">
+      <Link onClick={ dispatchReset } to="/">
         <button
           type="button"
           data-testid="btn-play-again"
@@ -55,15 +60,26 @@ class Feedback extends React.Component {
   }
 
   render() {
+    const { dispatchReset } = this.props;
+    setPlayerInRanking();
+
     return (
       <section>
         <Header />
         {this.feedbackInfos()}
-        {this.buttonPlayAgain()}
+        {this.buttonPlayAgain(dispatchReset)}
         {this.buttonRanking()}
       </section>
     );
   }
 }
 
-export default Feedback;
+Feedback.propTypes = {
+  dispatchReset: func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchReset: () => dispatch({ type: 'RESET_GAME' }),
+});
+
+export default connect(null, mapDispatchToProps)(Feedback);

@@ -1,5 +1,6 @@
 import {
   ADD_SCORE,
+  RESET_GAME,
   GET_QUESTIONS,
   GET_QUESTIONS_ERROR,
   GET_QUESTIONS_SUCCESS,
@@ -22,6 +23,9 @@ export default function gameReducer(state = INITIAL_STATE, { type, payload }) {
 
   case GET_QUESTIONS_ERROR:
     return { ...state, isLoading: false, error: payload };
+
+  case RESET_GAME:
+    return INITIAL_STATE;
 
   case ADD_SCORE: {
     return { ...state, totalScore: state.totalScore + payload };
