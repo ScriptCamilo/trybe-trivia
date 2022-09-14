@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/trybe-trivia/static/css/main.8b9c4a56.chunk.css",
+    "main.js": "/trybe-trivia/static/js/main.f30a4573.chunk.js",
+    "main.js.map": "/trybe-trivia/static/js/main.f30a4573.chunk.js.map",
+    "runtime-main.js": "/trybe-trivia/static/js/runtime-main.aebe4709.js",
+    "runtime-main.js.map": "/trybe-trivia/static/js/runtime-main.aebe4709.js.map",
+    "static/js/2.2e150066.chunk.js": "/trybe-trivia/static/js/2.2e150066.chunk.js",
+    "static/js/2.2e150066.chunk.js.map": "/trybe-trivia/static/js/2.2e150066.chunk.js.map",
+    "index.html": "/trybe-trivia/index.html",
+    "precache-manifest.913f45c20e23da79221d10b26493a2f2.js": "/trybe-trivia/precache-manifest.913f45c20e23da79221d10b26493a2f2.js",
+    "service-worker.js": "/trybe-trivia/service-worker.js",
+    "static/css/main.8b9c4a56.chunk.css.map": "/trybe-trivia/static/css/main.8b9c4a56.chunk.css.map",
+    "static/js/2.2e150066.chunk.js.LICENSE": "/trybe-trivia/static/js/2.2e150066.chunk.js.LICENSE",
+    "static/media/trophy.svg": "/trybe-trivia/static/media/trophy.bacdab71.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.aebe4709.js",
+    "static/js/2.2e150066.chunk.js",
+    "static/css/main.8b9c4a56.chunk.css",
+    "static/js/main.f30a4573.chunk.js"
+  ]
+}
