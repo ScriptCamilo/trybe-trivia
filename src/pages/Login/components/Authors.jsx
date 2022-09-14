@@ -5,13 +5,13 @@ function Authors() {
   return (
     <span className={ styles.authors }>
       Desenvolvido por:
-      <a href="https://github.com/mateussays" target="_blank" rel="noreferrer">Édrei Mateus</a>
+      <a href="https://github.com/mateussays" target="_blank" rel="noopener noreferrer">Édrei Mateus</a>
       ,
-      <a href="https://github.com/nascjoao" target="_blank" rel="noreferrer">João Nasc</a>
+      <a href="https://github.com/nascjoao" target="_blank" rel="noopener noreferrer">João Nasc</a>
       ,
-      <a href="https://github.com/ScriptCamilo" target="_blank" rel="noreferrer">Rodrigo Camilo</a>
+      <a href="https://github.com/ScriptCamilo" target="_blank" rel="noopener noreferrer">Camilo</a>
       e
-      <a href="https://github.com/WendrickBarreto" target="_blank" rel="noreferrer">Wendrick Barreto</a>
+      <a href="https://github.com/WendrickBarreto" target="_blank" rel="noopener noreferrer">Wendrick Barreto</a>
       .
     </span>
   );
